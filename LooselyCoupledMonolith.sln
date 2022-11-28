@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Catalog.Tests", "Catalog.Te
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AspNetCore", "AspNetCore\AspNetCore.csproj", "{8CAC846B-4299-4A98-ABDF-856535486112}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{D3609321-0AD3-4793-B166-CC4F0FBE2336}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{8CAC846B-4299-4A98-ABDF-856535486112}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8CAC846B-4299-4A98-ABDF-856535486112}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8CAC846B-4299-4A98-ABDF-856535486112}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D3609321-0AD3-4793-B166-CC4F0FBE2336}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D3609321-0AD3-4793-B166-CC4F0FBE2336}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D3609321-0AD3-4793-B166-CC4F0FBE2336}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D3609321-0AD3-4793-B166-CC4F0FBE2336}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -50,6 +56,7 @@ Global
 		{CC1FDC48-C859-440A-B50B-A27CF9CC0651} = {FFB405FC-4375-40BA-9083-14BA1069A53E}
 		{40E58B9D-6E96-4D19-B488-A93808D34DCD} = {FFB405FC-4375-40BA-9083-14BA1069A53E}
 		{8CAC846B-4299-4A98-ABDF-856535486112} = {9CCF775E-9F06-4F7F-8D4D-4045DC4E3224}
+		{D3609321-0AD3-4793-B166-CC4F0FBE2336} = {9CCF775E-9F06-4F7F-8D4D-4045DC4E3224}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {BA0C0D8C-118D-4DA9-8CF4-4EDD587D33A6}
