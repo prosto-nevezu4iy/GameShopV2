@@ -1,0 +1,48 @@
+﻿@model CatalogIndexViewModel
+
+@{
+    ViewData["Title"] = "Catalog";
+}
+
+@section Header {
+    <!-- Header-->
+    <header class="bg-dark py-5">
+        <div class="container px-4 px-lg-5 my-5">
+            <div class="text-center text-white">
+                <h1 class="display-4 fw-bolder">Shop in style</h1>
+                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+            </div>
+        </div>
+    </header>
+}
+
+<div class="container px-4 px-lg-5 mt-5">
+    <section class="esh-catalog-filters">
+        <div class="container">
+            <form method="get" class="d-flex align-items-baseline">
+                <label class="form-label">
+                    <select class="form-select" asp-for="@Model.GenresFilterApplied" asp-items="@Model.Genres"></select>
+                </label>
+                <button type="submit" class="ms-2 btn btn-labeled btn-info">
+                    <i class="bi bi-arrow-right-square"></i>
+                    Filter
+                </button>
+            </form>
+        </div>
+    </section>
+    @if(Model.Products.Any()) {
+        <partial name="_pagination" for="PaginationInfo" />
+
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            @foreach(var product in Model.Products) {
+                <partial name="_product" for="@product" />
+            }
+        </div>
+
+        <partial name="_pagination" for="PaginationInfo" />
+    } else {
+        <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
+            THERE ARE NO RESULTS THAT MATCH YOUR SEARCH
+        </div>
+    }
+</div>
