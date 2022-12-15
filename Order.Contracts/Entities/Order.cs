@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Order.Contracts.Entities
+namespace OrderProject.Contracts.Entities
 {
     public class Order : BaseEntity, IAggregateRoot
     {

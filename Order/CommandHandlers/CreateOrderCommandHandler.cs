@@ -3,12 +3,11 @@ using BasketProject.Contracts.Queries;
 using Catalog.Contracts.Queries;
 using Core.Extensions;
 using MediatR;
-using Order.Contracts.Abstracts;
-using Order.Contracts.Commands;
-using Order.Contracts.Entities;
-using OrderEntity = Order.Contracts.Entities.Order;
+using OrderProject.Contracts.Abstracts;
+using OrderProject.Contracts.Commands;
+using OrderProject.Contracts.Entities;
 
-namespace Order.CommandHandlers
+namespace OrderProject.CommandHandlers
 {
     public class CreateOrderCommandHandler : AsyncRequestHandler<CreateOrderCommand>
     {
@@ -51,7 +50,7 @@ namespace Order.CommandHandlers
                 return orderItem;
             }).ToList();
 
-            var order = new OrderEntity(basket.BuyerId, request.ShippingAddress, items);
+            var order = new Order(basket.BuyerId, request.ShippingAddress, items);
 
             await _orderRepository.AddAsync(order);
         }

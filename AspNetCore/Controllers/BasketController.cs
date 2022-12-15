@@ -6,10 +6,8 @@ using Core.Extensions;
 using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.VisualBasic;
-using Order.Contracts.Commands;
-using Order.Contracts.Entities;
-using System.Net;
+using OrderProject.Contracts.Commands;
+using OrderProject.Contracts.Entities;
 using Web.Interfaces;
 using Web.ViewModels;
 

@@ -15,13 +15,11 @@ namespace BasketProject.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<Basket> AddAsync(Basket entity, CancellationToken cancellationToken = default)
+        public async Task AddAsync(Basket entity, CancellationToken cancellationToken = default)
         {
             _dbContext.Baskets.Add(entity);
 
             await SaveChangesAsync(cancellationToken);
-
-            return entity;
         }
 
         public async Task UpdateAsync(Basket entity, CancellationToken cancellationToken = default)

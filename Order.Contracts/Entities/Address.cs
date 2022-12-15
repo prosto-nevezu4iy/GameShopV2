@@ -1,4 +1,4 @@
-﻿namespace Order.Contracts.Entities
+﻿namespace OrderProject.Contracts.Entities
 {
     public class Address // Value Object
     {

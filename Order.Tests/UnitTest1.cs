@@ -1,4 +1,4 @@
-namespace Order.Tests
+namespace OrderProject.Tests
 {
     public class UnitTest1
     {

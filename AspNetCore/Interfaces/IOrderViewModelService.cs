@@ -1,11 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using OrderProject.Contracts.DTO;
 using Web.ViewModels;
 
 namespace Web.Interfaces
 {
     public interface IOrderViewModelService
     {
-        Task<IEnumerable<OrderViewModel>> GetOrders(Guid buyerId);
-        Task<OrderViewModel> GetOrderDetails(int orderId);
+        IEnumerable<OrderViewModel> ConvertToViewModel(IEnumerable<OrderDto> orders);
+        OrderViewModel ConvertToViewModel(OrderDto order);
     }
 }

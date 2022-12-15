@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace Order.Migrations
+namespace OrderProject.Migrations
 {
     public partial class AddedOrder : Migration
     {

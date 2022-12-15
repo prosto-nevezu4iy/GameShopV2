@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Order.Contracts.Entities;
+using OrderProject.Contracts.Entities;
 
-namespace Order.Contracts.Commands
+namespace OrderProject.Contracts.Commands
 {
     public class CreateOrderCommand : IRequest
     {

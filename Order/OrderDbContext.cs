@@ -1,8 +1,8 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using OrderProject.Contracts.Entities;
 using System.Reflection;
-using OrderEntity = Order.Contracts.Entities.Order;
 
-namespace Order
+namespace OrderProject
 {
     public class OrderDbContext : DbContext
     {
@@ -12,7 +12,7 @@ namespace Order
 
         }
 
-        public DbSet<OrderEntity> Orders { get; set; }
+        public DbSet<Order> Orders { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

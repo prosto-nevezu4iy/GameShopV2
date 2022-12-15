@@ -5,7 +5,7 @@ namespace BasketProject.Contracts.Abstracts
 {
     public interface IBasketRepository
     {
-        Task<Basket> AddAsync(Basket entity, CancellationToken cancellationToken = default);
+        Task AddAsync(Basket entity, CancellationToken cancellationToken = default);
         Task UpdateAsync(Basket entity, CancellationToken cancellationToken = default);
         Task DeleteAsync(Basket entity, CancellationToken cancellationToken = default);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);

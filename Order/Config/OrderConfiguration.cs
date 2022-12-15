@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using OrderEntity = Order.Contracts.Entities.Order;
+using OrderProject.Contracts.Entities;
 
-namespace Order.Config
+namespace OrderProject.Config
 {
-    public class OrderConfiguration : IEntityTypeConfiguration<OrderEntity>
+    public class OrderConfiguration : IEntityTypeConfiguration<Order>
     {
-        public void Configure(EntityTypeBuilder<OrderEntity> builder)
+        public void Configure(EntityTypeBuilder<Order> builder)
         {
             builder.OwnsOne(o => o.ShipToAddress, a =>
             {

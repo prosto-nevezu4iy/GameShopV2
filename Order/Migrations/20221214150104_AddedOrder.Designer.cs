@@ -5,11 +5,10 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Order;
 
 #nullable disable
 
-namespace Order.Migrations
+namespace OrderProject.Migrations
 {
     [DbContext(typeof(OrderDbContext))]
     [Migration("20221214150104_AddedOrder")]

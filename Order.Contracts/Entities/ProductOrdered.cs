@@ -1,6 +1,6 @@
 ﻿using Core.Extensions;
 
-namespace Order.Contracts.Entities
+namespace OrderProject.Contracts.Entities
 {
     public class ProductOrdered // Value Object
     {

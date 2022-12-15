@@ -1,6 +1,6 @@
 ﻿using Core.Entities;
 
-namespace Order.Contracts.Entities
+namespace OrderProject.Contracts.Entities
 {
     public class OrderItem : BaseEntity
     {

@@ -3,11 +3,11 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Order.Contracts.Abstracts;
-using Order.Repositories;
+using OrderProject.Contracts.Abstracts;
+using OrderProject.Repositories;
 using System.Reflection;
 
-namespace Order
+namespace OrderProject
 {
     public static class ConfigureServices
     {

@@ -2,7 +2,7 @@ using AspNetCore.Configuration;
 using AspNetCore.Middlewares;
 using BasketProject;
 using Catalog;
-using Order;
+using OrderProject;
 using System.IdentityModel.Tokens.Jwt;
 using Web.Configuration;
 

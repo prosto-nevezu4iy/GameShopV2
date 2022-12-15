@@ -1,9 +1,14 @@
-﻿using OrderEntity = Order.Contracts.Entities.Order;
+﻿using Core.Interfaces;
+using OrderProject.Contracts.Entities;
 
-namespace Order.Contracts.Abstracts
+namespace OrderProject.Contracts.Abstracts
 {
     public interface IOrderRepository
     {
-        Task<OrderEntity> AddAsync(OrderEntity entity, CancellationToken cancellationToken = default);
+        Task AddAsync(Order entity, CancellationToken cancellationToken = default);
+        Task<Order?> FirstOrDefaultAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default);
+        Task<List<Order>> ListAsync(CancellationToken cancellationToken = default);
+        Task<List<Order>> ListAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default);
+        Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
