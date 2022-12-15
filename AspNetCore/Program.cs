@@ -1,14 +1,44 @@
+using AspNetCore.Configuration;
+using AspNetCore.Middlewares;
+using BasketProject;
 using Catalog;
-using Core;
+using Order;
+using System.IdentityModel.Tokens.Jwt;
 using Web.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddCatalog(builder.Configuration);
+builder.Services.AddBasket(builder.Configuration);
+builder.Services.AddOrder(builder.Configuration);
 
 builder.Services.AddWebServices(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
+
+JwtSecurityTokenHandler.DefaultMapInboundClaims = false;
+
+var identityConfig = builder.Configuration.GetSection("Identity").Get<Identity>();
+
+builder.Services.AddAuthentication(options =>
+{
+    options.DefaultScheme = "Cookies";
+    options.DefaultChallengeScheme = "oidc";
+})
+    .AddCookie("Cookies")
+    .AddOpenIdConnect("oidc", options =>
+    {
+        options.Authority = identityConfig.Authority;
+
+        options.ClientId = identityConfig.ClientId;
+        options.ClientSecret = identityConfig.ClientSecret;
+        options.ResponseType = "code";
+
+        options.Scope.Add("profile");
+        options.GetClaimsFromUserInfoEndpoint = true;
+
+        options.SaveTokens = true;
+    });
 
 var app = builder.Build();
 
@@ -42,6 +72,8 @@ app.UseRouting();
 
 app.UseAuthentication();
 app.UseAuthorization();
+
+app.UseTransferAnonymousBasketToUser();
 
 app.UseEndpoints(endpoints =>
 {

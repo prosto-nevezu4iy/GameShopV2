@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <PackageReference Include="IdentityModel" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.OpenIdConnect" Version="6.0.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.11">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -15,8 +16,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Basket.Contracts\Basket.Contracts.csproj" />
+    <ProjectReference Include="..\Basket\Basket.csproj" />
     <ProjectReference Include="..\Catalog.Contracts\Catalog.Contracts.csproj" />
     <ProjectReference Include="..\Catalog\Catalog.csproj" />
+    <ProjectReference Include="..\Order.Contracts\Order.Contracts.csproj" />
+    <ProjectReference Include="..\Order\Order.csproj" />
   </ItemGroup>
 
   <ItemGroup>

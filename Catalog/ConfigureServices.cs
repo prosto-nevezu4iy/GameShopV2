@@ -1,4 +1,5 @@
 ﻿using Catalog.Contracts.Abstracts;
+using Catalog.Mapping;
 using Catalog.Repositories;
 using Catalog.Services;
 using Core.Interfaces;
@@ -18,6 +19,7 @@ namespace Catalog
                 c.UseSqlServer(configuration.GetConnectionString("DefaultConnection"), 
                 x => x.MigrationsHistoryTable("__EFMigrationsHistory", "catalog")));
 
+            serviceCollection.AddAutoMapper(Assembly.GetExecutingAssembly());
             serviceCollection.AddMediatR(Assembly.GetExecutingAssembly());
 
             serviceCollection.AddSingleton<IUriComposer>(new UriComposer(configuration.Get<CatalogSettings>()));

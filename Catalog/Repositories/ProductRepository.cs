@@ -2,6 +2,7 @@
 using AutoMapper.QueryableExtensions;
 using Catalog.Contracts.Entities;
 using Catalog.Contracts.QueryModels;
+using Core.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
@@ -47,6 +48,11 @@ namespace Catalog.Repositories
                     .AsNoTracking()
                     .ProjectTo<ProductItemDto>(_mapper.ConfigurationProvider)
                     .ToListAsync();
+        }
+
+        public async Task<Product?> GetByIdAsync(int id)
+        {
+            return await _dbContext.Products.FindAsync(id);
         }
     }
 }

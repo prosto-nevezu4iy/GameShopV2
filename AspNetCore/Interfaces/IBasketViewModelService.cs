@@ -1,9 +1,10 @@
-﻿namespace Web.Interfaces
+﻿using BasketProject.Contracts.DTO;
+using Web.ViewModels;
+
+namespace Web.Interfaces
 {
     public interface IBasketViewModelService
     {
-        //Task<BasketViewModel> GetOrCreateBasketForUser(Guid userId);
-        //Task<int> CountTotalBasketItems(Guid userId);
-        //Task<BasketViewModel> Map(Basket basket);
+        BasketViewModel ConvertToViewModel(BasketDto basket);
     }
 }
