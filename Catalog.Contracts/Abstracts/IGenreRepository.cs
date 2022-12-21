@@ -1,9 +1,9 @@
-﻿using Catalog.Contracts.DTO;
+﻿using Catalog.Contracts.Entities;
 
 namespace Catalog.Contracts.Abstracts
 {
     public interface IGenreRepository
     {
-        Task<List<GenreItemDto>> ListAsync(CancellationToken cancellationToken = default);
+        Task<IList<Genre>> ListAsync(CancellationToken cancellationToken = default);
     }
 }

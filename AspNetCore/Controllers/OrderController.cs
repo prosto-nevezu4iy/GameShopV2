@@ -3,7 +3,6 @@ using Core.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using OrderProject.Contracts.Queries;
-using System;
 using Web.Interfaces;
 
 namespace AspNetCore.Controllers

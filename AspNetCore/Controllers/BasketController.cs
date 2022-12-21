@@ -17,11 +17,16 @@ namespace AspNetCore.Controllers
     {
         private readonly IBasketViewModelService _basketViewModelService;
         private readonly ICurrentUserService _currentUserService;
+        private readonly ILogger<BasketController> _logger;
 
-        public BasketController(IBasketViewModelService basketViewModelService, ICurrentUserService currentUserService)
+        public BasketController(
+            IBasketViewModelService basketViewModelService, 
+            ICurrentUserService currentUserService, 
+            ILogger<BasketController> logger)
         {
             _basketViewModelService = basketViewModelService;
             _currentUserService = currentUserService;
+            _logger = logger;
         }
 
         public async Task<IActionResult> Index()
@@ -152,7 +157,7 @@ namespace AspNetCore.Controllers
             }
             catch (EmptyBasketOnCheckoutException emptyBasketOnCheckoutException)
             {
-                // _logger.LogWarning(emptyBasketOnCheckoutException.Message);
+                 _logger.LogError(emptyBasketOnCheckoutException.Message);
                 return RedirectToAction(nameof(Index));
             }
 

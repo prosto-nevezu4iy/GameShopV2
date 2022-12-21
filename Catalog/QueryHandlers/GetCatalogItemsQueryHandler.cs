@@ -1,4 +1,7 @@
-﻿using Catalog.Contracts.Abstracts;
+﻿using AutoMapper;
+using Catalog.Contracts.Abstracts;
+using Catalog.Contracts.DTO;
+using Catalog.Contracts.Entities;
 using Catalog.Contracts.Queries;
 using Catalog.Contracts.QueryModels;
 using Catalog.Specifications;
@@ -10,13 +13,16 @@ namespace Catalog.QueryHandlers
     {
         private readonly IProductRepository _productRepository;
         private readonly IGenreRepository _genreRepository;
+        private readonly IMapper _mapper;
 
         public GetCatalogItemsQueryHandler(
-            IProductRepository productRepository, 
-            IGenreRepository genreRepository)
+            IProductRepository productRepository,
+            IGenreRepository genreRepository,
+            IMapper mapper)
         {
             _productRepository = productRepository;
             _genreRepository = genreRepository;
+            _mapper = mapper;
         }
 
         public async Task<CatalogItemsDto> Handle(GetCatalogItemsQuery request, CancellationToken cancellationToken)
@@ -25,10 +31,13 @@ namespace Catalog.QueryHandlers
             var filterPaginatedSpecification =
                 new CatalogFilterPaginatedSpecification(request.ItemsPage * request.PageIndex, request.ItemsPage, request.GenreId);
 
+            var products = await _productRepository.ListAsync(filterPaginatedSpecification);
+            var genres = await _genreRepository.ListAsync();
+
             return new CatalogItemsDto
             {
-                Products = await _productRepository.ListAsync(filterPaginatedSpecification),
-                Genres = await _genreRepository.ListAsync(),
+                Products = _mapper.Map<IList<ProductItemDto>>(products),
+                Genres = _mapper.Map<IList<GenreItemDto>>(genres),
                 TotalItems = await _productRepository.CountAsync(filterSpecification)
             };
         }

@@ -1,5 +1,4 @@
 ﻿using Catalog.Contracts.Queries;
-using Catalog.QueryHandlers;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 using Web.Interfaces;

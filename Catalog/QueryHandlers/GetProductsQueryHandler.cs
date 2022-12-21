@@ -1,8 +1,5 @@
 ﻿using BasketProject.Contracts.DTO;
-using BasketProject.Contracts.Entities;
 using Catalog.Contracts.Queries;
-using Catalog.Contracts.QueryModels;
-using Catalog.Repositories;
 using Catalog.Specifications;
 using Core.Interfaces;
 using MediatR;

@@ -1,7 +1,5 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Catalog.Contracts.Abstracts;
-using Catalog.Contracts.DTO;
+﻿using Catalog.Contracts.Abstracts;
+using Catalog.Contracts.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Repositories
@@ -9,20 +7,17 @@ namespace Catalog.Repositories
     public class GenreRepository : IGenreRepository
     {
         private readonly CatalogDbContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public GenreRepository(CatalogDbContext dbContext, IMapper mapper)
+        public GenreRepository(CatalogDbContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
         }
 
-        public async Task<List<GenreItemDto>> ListAsync(CancellationToken cancellationToken = default)
+        public async Task<IList<Genre>> ListAsync(CancellationToken cancellationToken = default)
         {
-            return 
+            return
                 await _dbContext.Genres
                     .AsNoTracking()
-                    .ProjectTo<GenreItemDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
         }
     }

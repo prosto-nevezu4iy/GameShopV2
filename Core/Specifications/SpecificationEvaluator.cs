@@ -3,9 +3,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Core.Specifications
 {
-    public class SpecificationEvaluator<T> where T : class, IAggregateRoot
+    public abstract class SpecificationEvaluator<T> where T : class, IAggregateRoot
     {
-        public static IQueryable<T> GetQuery(IQueryable<T> inputQuery, ISpecification<T> specification)
+        public IQueryable<T> GetQuery(IQueryable<T> inputQuery, ISpecification<T> specification)
         {
             var query = inputQuery;
 

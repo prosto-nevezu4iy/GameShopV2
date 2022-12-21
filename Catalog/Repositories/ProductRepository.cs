@@ -1,52 +1,39 @@
-﻿using AutoMapper;
-using AutoMapper.QueryableExtensions;
-using Catalog.Contracts.Entities;
-using Catalog.Contracts.QueryModels;
-using Core.Entities;
+﻿using Catalog.Contracts.Entities;
 using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 
 namespace Catalog.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository : SpecificationEvaluator<Product>, IProductRepository
     {
         private readonly CatalogDbContext _dbContext;
-        private readonly IMapper _mapper;
 
-        public ProductRepository(CatalogDbContext dbContext, IMapper mapper)
+        public ProductRepository(CatalogDbContext dbContext)
         {
             _dbContext = dbContext;
-            _mapper = mapper;
         }
 
         public async Task<int> CountAsync(ISpecification<Product> specification, CancellationToken cancellationToken = default)
         {
-            return 
-                await ApplySpecification(specification)
+            return
+                await GetQuery(_dbContext.Products.AsQueryable(), specification)
                     .CountAsync(cancellationToken);
         }
 
-        public async Task<List<ProductItemDto>> ListAsync(CancellationToken cancellationToken = default)
+        public async Task<IList<Product>> ListAsync(CancellationToken cancellationToken = default)
         {
             return 
                 await _dbContext.Products
                     .AsNoTracking()
-                    .ProjectTo<ProductItemDto>(_mapper.ConfigurationProvider)
                     .ToListAsync(cancellationToken);
         }
 
-        private IQueryable<Product> ApplySpecification(ISpecification<Product> spec)
-        {
-            return SpecificationEvaluator<Product>.GetQuery(_dbContext.Products.AsQueryable(), spec);
-        }
-
-        public async Task<List<ProductItemDto>> ListAsync(ISpecification<Product> specification, CancellationToken cancellationToken = default)
+        public async Task<IList<Product>> ListAsync(ISpecification<Product> specification, CancellationToken cancellationToken = default)
         {
             return 
-                await ApplySpecification(specification)
+                await GetQuery(_dbContext.Products.AsQueryable(), specification)
                     .AsNoTracking()
-                    .ProjectTo<ProductItemDto>(_mapper.ConfigurationProvider)
                     .ToListAsync();
         }
 

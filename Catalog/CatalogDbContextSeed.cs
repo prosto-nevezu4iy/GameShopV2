@@ -42,7 +42,7 @@ namespace Catalog
 
                 retryForAvailability++;
 
-               // logger.LogError(ex.Message);
+                logger.LogError(ex.Message);
                 await SeedAsync(catalogDbContext, logger, retryForAvailability);
                 throw;
             }

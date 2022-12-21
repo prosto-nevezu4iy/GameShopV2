@@ -2,6 +2,7 @@
 using BasketProject.Contracts.Abstracts;
 using BasketProject.Contracts.Commands;
 using BasketProject.Contracts.DTO;
+using BasketProject.Contracts.Entities;
 using BasketProject.Specifications;
 using Catalog.Contracts.Queries;
 using MediatR;
@@ -28,8 +29,8 @@ namespace BasketProject.CommandHandlers
 
             if (basket == null)
             {
-               // basket = new Basket(request.UserId);
-               // await _basketRepository.AddAsync(basket);
+                basket = new Basket(request.UserId);
+                await _basketRepository.AddAsync(basket);
             }
 
             basket.AddItem(request.ProductId, request.Price, request.Quantity);

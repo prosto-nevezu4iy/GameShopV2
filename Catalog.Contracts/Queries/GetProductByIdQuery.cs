@@ -1,5 +1,4 @@
 ﻿using Catalog.Contracts.Entities;
-using Catalog.Contracts.QueryModels;
 using MediatR;
 
 namespace Catalog.Contracts.Queries

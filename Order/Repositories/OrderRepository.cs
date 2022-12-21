@@ -1,5 +1,4 @@
-﻿using BasketProject.Contracts.Entities;
-using Core.Interfaces;
+﻿using Core.Interfaces;
 using Core.Specifications;
 using Microsoft.EntityFrameworkCore;
 using OrderProject.Contracts.Abstracts;
@@ -7,7 +6,7 @@ using OrderProject.Contracts.Entities;
 
 namespace OrderProject.Repositories
 {
-    public class OrderRepository : IOrderRepository
+    public class OrderRepository : SpecificationEvaluator<Order>, IOrderRepository
     {
         private readonly OrderDbContext _dbContext;
 
@@ -28,29 +27,24 @@ namespace OrderProject.Repositories
             return await _dbContext.Orders.FindAsync(id);
         }
 
-        public async Task<List<Order>> ListAsync(CancellationToken cancellationToken = default)
+        public async Task<IList<Order>> ListAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext.Orders.ToListAsync(cancellationToken);
         }
 
-        public async Task<List<Order>> ListAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default)
+        public async Task<IList<Order>> ListAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default)
         {
-            return await ApplySpecification(specification).ToListAsync(cancellationToken);
+            return await GetQuery(_dbContext.Orders.AsQueryable(), specification).ToListAsync(cancellationToken);
         }
 
         public async Task<Order?> FirstOrDefaultAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default)
         {
-            return await ApplySpecification(specification).FirstOrDefaultAsync(cancellationToken);
+            return await GetQuery(_dbContext.Orders.AsQueryable(), specification).FirstOrDefaultAsync(cancellationToken);
         }
 
         public async Task<int> SaveChangesAsync(CancellationToken cancellationToken = default)
         {
             return await _dbContext.SaveChangesAsync(cancellationToken);
-        }
-
-        private IQueryable<Order> ApplySpecification(ISpecification<Order> spec)
-        {
-            return SpecificationEvaluator<Order>.GetQuery(_dbContext.Orders.AsQueryable(), spec);
         }
     }
 }

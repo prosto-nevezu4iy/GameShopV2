@@ -1,18 +1,29 @@
+using AspNetCore.Behavious;
 using AspNetCore.Configuration;
 using AspNetCore.Middlewares;
 using BasketProject;
 using Catalog;
+using MediatR;
 using OrderProject;
+using Serilog;
 using System.IdentityModel.Tokens.Jwt;
 using Web.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
+var logger = new LoggerConfiguration()
+                    .ReadFrom.Configuration(builder.Configuration)
+                    .Enrich.FromLogContext()
+                    .CreateLogger();
+
+builder.Logging.ClearProviders();
+builder.Logging.AddSerilog(logger);
+
+builder.Services.AddWebServices(builder.Configuration);
+
 builder.Services.AddCatalog(builder.Configuration);
 builder.Services.AddBasket(builder.Configuration);
 builder.Services.AddOrder(builder.Configuration);
-
-builder.Services.AddWebServices(builder.Configuration);
 
 builder.Services.AddControllersWithViews();
 

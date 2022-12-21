@@ -7,8 +7,8 @@ namespace OrderProject.Contracts.Abstracts
     {
         Task AddAsync(Order entity, CancellationToken cancellationToken = default);
         Task<Order?> FirstOrDefaultAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default);
-        Task<List<Order>> ListAsync(CancellationToken cancellationToken = default);
-        Task<List<Order>> ListAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default);
+        Task<IList<Order>> ListAsync(CancellationToken cancellationToken = default);
+        Task<IList<Order>> ListAsync(ISpecification<Order> specification, CancellationToken cancellationToken = default);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
     }
 }
