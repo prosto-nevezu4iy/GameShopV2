@@ -10,6 +10,7 @@ namespace BasketProject.Contracts.Abstracts
         Task DeleteAsync(Basket entity, CancellationToken cancellationToken = default);
         Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
         Task<Basket?> GetByIdAsync(int id);
+        Task<int> GetBasketCountAsync(Guid userId);
         Task<IList<Basket>> ListAsync(CancellationToken cancellationToken = default);
         Task<IList<Basket>> ListAsync(ISpecification<Basket> specification, CancellationToken cancellationToken = default);
         Task<int> CountAsync(ISpecification<Basket> specification, CancellationToken cancellationToken = default);

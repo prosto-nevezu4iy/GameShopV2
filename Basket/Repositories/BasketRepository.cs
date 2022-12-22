@@ -2,6 +2,7 @@
 using BasketProject.Contracts.Entities;
 using Core.Interfaces;
 using Core.Specifications;
+using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace BasketProject.Repositories
@@ -64,6 +65,14 @@ namespace BasketProject.Repositories
         public async Task<Basket?> FirstOrDefaultAsync(ISpecification<Basket> specification, CancellationToken cancellationToken = default)
         {
             return await GetQuery(_dbContext.Baskets.AsQueryable(), specification).FirstOrDefaultAsync(cancellationToken);
+        }
+
+        public async Task<int> GetBasketCountAsync(Guid userId)
+        {
+            return await _dbContext.Baskets
+               .Where(basket => basket.BuyerId == userId)
+               .SelectMany(item => item.Items)
+               .CountAsync();
         }
     }
 }

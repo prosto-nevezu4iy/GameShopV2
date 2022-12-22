@@ -6,7 +6,7 @@ using MediatR;
 
 namespace BasketProject.CommandHandlers
 {
-    public class TransferBasketCommandHandler : AsyncRequestHandler<TransferBasketCommand>
+    public class TransferBasketCommandHandler : IRequestHandler<TransferBasketCommand>
     {
         private readonly IBasketRepository _basketRepository;
 
@@ -15,11 +15,11 @@ namespace BasketProject.CommandHandlers
             _basketRepository = basketRepository;
         }
 
-        protected override async Task Handle(TransferBasketCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(TransferBasketCommand request, CancellationToken cancellationToken)
         {
             var anonymousBasketSpec = new BasketWithItemsSpecification(Guid.Parse(request.AnonymousId));
             var anonymousBasket = await _basketRepository.FirstOrDefaultAsync(anonymousBasketSpec);
-            if (anonymousBasket == null) return;
+            if (anonymousBasket == null) return Unit.Value;
             var userBasketSpec = new BasketWithItemsSpecification(Guid.Parse(request.UserId));
             var userBasket = await _basketRepository.FirstOrDefaultAsync(userBasketSpec);
             if (userBasket == null)
@@ -33,6 +33,8 @@ namespace BasketProject.CommandHandlers
             }
             await _basketRepository.UpdateAsync(userBasket);
             await _basketRepository.DeleteAsync(anonymousBasket);
+
+            return Unit.Value;
         }
     }
 }

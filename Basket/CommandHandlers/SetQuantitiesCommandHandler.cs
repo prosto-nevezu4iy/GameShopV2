@@ -5,7 +5,7 @@ using MediatR;
 
 namespace BasketProject.CommandHandlers
 {
-    public class SetQuantitiesCommandHandler : AsyncRequestHandler<SetQuantitiesCommand>
+    public class SetQuantitiesCommandHandler : IRequestHandler<SetQuantitiesCommand>
     {
         private readonly IBasketRepository _basketRepository;
 
@@ -14,11 +14,11 @@ namespace BasketProject.CommandHandlers
             _basketRepository = basketRepository;
         }
 
-        protected override async Task Handle(SetQuantitiesCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(SetQuantitiesCommand request, CancellationToken cancellationToken)
         {
             var basketSpec = new BasketWithItemsSpecification(request.Id);
             var basket = await _basketRepository.FirstOrDefaultAsync(basketSpec);
-            if (basket == null) return;
+            if (basket == null) return Unit.Value;
 
             foreach (var item in basket.Items)
             {
@@ -30,6 +30,8 @@ namespace BasketProject.CommandHandlers
 
             basket.RemoveEmptyItems();
             await _basketRepository.UpdateAsync(basket);
+
+            return Unit.Value;
         }
     }
 }

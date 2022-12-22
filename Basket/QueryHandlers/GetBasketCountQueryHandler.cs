@@ -1,26 +1,21 @@
-﻿using BasketProject.Contracts.Queries;
+﻿using BasketProject.Contracts.Abstracts;
+using BasketProject.Contracts.Queries;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 
 namespace BasketProject.QueryHandlers
 {
     public class GetBasketCountQueryHandler : IRequestHandler<GetBasketCountQuery, int>
     {
-        private readonly BasketDbContext _dbContext;
+        private readonly IBasketRepository _basketRepository;
 
-        public GetBasketCountQueryHandler(BasketDbContext dbContext)
+        public GetBasketCountQueryHandler(IBasketRepository basketRepository)
         {
-            _dbContext = dbContext;
+            _basketRepository = basketRepository;
         }
 
         public async Task<int> Handle(GetBasketCountQuery request, CancellationToken cancellationToken)
         {
-            var totalItems = await _dbContext.Baskets
-               .Where(basket => basket.BuyerId == request.UserId)
-               .SelectMany(item => item.Items)
-               .CountAsync();
-
-            return totalItems;
+            return await _basketRepository.GetBasketCountAsync(request.UserId);
         }
     }
 }
