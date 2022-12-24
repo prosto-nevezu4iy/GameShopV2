@@ -9,7 +9,7 @@ using OrderProject.Contracts.Entities;
 
 namespace OrderProject.CommandHandlers
 {
-    public class CreateOrderCommandHandler : AsyncRequestHandler<CreateOrderCommand>
+    public class CreateOrderCommandHandler : IRequestHandler<CreateOrderCommand>
     {
         private readonly IMediator _mediator;
         private readonly IOrderRepository _orderRepository;
@@ -20,7 +20,7 @@ namespace OrderProject.CommandHandlers
             _orderRepository = orderRepository;
         }
 
-        protected override async Task Handle(CreateOrderCommand request, CancellationToken cancellationToken)
+        public async Task<Unit> Handle(CreateOrderCommand request, CancellationToken cancellationToken)
         {
             var query = new GetBasketByIdQuery
             {
@@ -30,7 +30,7 @@ namespace OrderProject.CommandHandlers
             var basket = await _mediator.Send(query);
 
             basket.AssertNotNull(nameof(basket));
-            
+
             if (!basket.Items.Any())
             {
                 throw new EmptyBasketOnCheckoutException();
@@ -53,6 +53,8 @@ namespace OrderProject.CommandHandlers
             var order = new Order(basket.BuyerId, request.ShippingAddress, items);
 
             await _orderRepository.AddAsync(order);
+
+            return Unit.Value;
         }
     }
 }
